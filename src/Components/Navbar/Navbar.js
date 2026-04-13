@@ -195,7 +195,7 @@ const [age, setAge] = React.useState(10);
           </Box>
           
             <IconButton
-              sx={{ display: { xs: 'flex', md: 'none' }, color: 'rgb(143,114,201)', backgroundColor: 'rgb(218, 215, 223)' }}
+              sx={{ display: { xs: 'flex', md: 'none' },border:'1px solid lightgrey', color: 'rgb(114,114,114)', backgroundColor: 'rgb(248,248,248)' }}
               onClick={() => setMobileSearchOpen(true)}
             >
               <SearchIcon />
@@ -1153,43 +1153,68 @@ const [age, setAge] = React.useState(10);
       
 
       {mobileSearchOpen && (
-        <Box
-          sx={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            zIndex: 1400,
-            p: 1,
-            bgcolor: 'white',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 1,
-            boxShadow: 1,
-          }}
-        >
-          <Search sx={{ flexGrow: 1 }}>
-            <SearchIconWrapper>
-              <SearchIcon sx={{ color: 'gray' }} />
-            </SearchIconWrapper>
-            <StyledInputBase autoFocus placeholder="Search" inputProps={{ 'aria-label': 'search' }} />
-            <TuneIcon
-              sx={{
-                color: 'rgb(143,114,201)',
-                backgroundColor: 'rgb(237,231,246)',
-                padding: '6px',
-                borderRadius: '7px',
-                cursor: 'pointer',
-                '&:hover': { color: 'white', backgroundColor: 'purple' },
-              }}
-            />
-          </Search>
-          <IconButton onClick={() => setMobileSearchOpen(false)}>
-            <CloseIcon />
-          </IconButton>
-        </Box>
-      )}
+  <Box
+    sx={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100vw', // Full viewport width
+      zIndex: 1400,
+      p: '10px 15px', // Mobile par edges se thora gap
+      bgcolor: 'white',
+      display: 'flex',
+      alignItems: 'center',
+      gap: 1,
+      boxShadow: '0px 2px 8px rgba(0,0,0,0.1)',
+    }}
+  >
+    <Search 
+      sx={{ 
+        // flexGrow: 1, 
+        width:'250px',
+        display: 'flex', 
+        alignItems: 'center',
+        backgroundColor: '#f1f3f4', // Light gray background
+        borderRadius: '24px', // Modern rounded look
+        padding: '2px 12px',
+        height: '40px'
+      }}
+    >
+      <SearchIconWrapper sx={{ display: 'flex', alignItems: 'center' }}>
+        <SearchIcon sx={{ color: 'gray', fontSize: '20px' }} />
+      </SearchIconWrapper>
+      
+      <StyledInputBase 
+        autoFocus 
+        placeholder="Search..." 
+        inputProps={{ 'aria-label': 'search' }} 
+        sx={{ 
+          ml: 1, 
+          width: '100%', // Ye ensures ke input poori space le
+          '& .MuiInputBase-input': {
+            fontSize: '16px', // Mobile par zoom-in se bachne ke liye standard size
+            padding: '8px 0',
+          }
+        }}
+      />
+    </Search>
 
+    <IconButton 
+      onClick={() => setMobileSearchOpen(false)}
+      sx={{ 
+        flexShrink: 0, // Icon ko squeeze hone se bachata hai
+        color: '#606060' ,
+        padding:'7px',borderRadius:'100%',background:'rgb(248,248,248)',border:'1px solid lightgrey'
+      }}
+    >
+      <CloseIcon />
+    </IconButton>
+     {/* <IconButton sx={{padding:'7px',borderRadius:'100%',background:'rgb(248,248,248)',border:'1px solid lightgrey'}}>
+                <TiMicrophoneOutline size={26}/> */}
+
+            {/* </IconButton> */}
+  </Box>
+)}
       {mobileDrawerOpen && (
         <Box
           sx={{
@@ -1208,26 +1233,10 @@ const [age, setAge] = React.useState(10);
         >
         {/*  */}
  <List sx={{ pt: 2 }}>
-          <ListItem disablePadding >
-  <ListItemText
-    primary={"Dashboard"}
-    sx={{
-      opacity:1 ,
-      ml:  1,
-      display:  'block' , 
-      transition: 'opacity 0.3s, margin 0.3s',
-    }}
-    primaryTypographyProps={{
-      component: 'h4',
-      fontWeight: 700,
-    }}
-  />
-</ListItem>
-
-<ListItem disablePadding sx={{ mb: 1, '&:hover': { background: 'rgb(237,231,246)' } }}>
+     
+<ListItem disablePadding sx={{ mb: 1,  }}>
   <ListItemButton
-    // component={Link}
-    // to="/dashboard/default"
+    onClick={() => setSelectedCategory("All")}
     sx={{
       display: 'flex',
       alignItems: 'center',
@@ -1259,13 +1268,9 @@ const [age, setAge] = React.useState(10);
 </ListItem>
 
 
-          <ListItem disablePadding sx={{ mb: 1 , '&:hover':{
-            background:'rgb(237,231,246)',
-            
-          }}}>
+          <ListItem disablePadding sx={{ mb: 1}}>
             <ListItemButton
-            //   component={Link}
-            //   to="/dashboard/analytics"
+           onClick={() => setSelectedCategory("Music")}
               sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -1296,13 +1301,9 @@ const [age, setAge] = React.useState(10);
             </ListItemButton>
           </ListItem>
 
-          <ListItem disablePadding sx={{ mb: 1 , '&:hover':{
-            background:'rgb(237,231,246)',
-            
-          }}}>
+          <ListItem disablePadding sx={{ mb: 1}}>
             <ListItemButton
-            //   component={Link}
-            //   to="/dashboard/invoice"
+           onClick={() => setSelectedCategory("Gaming")}
               sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -1334,13 +1335,9 @@ const [age, setAge] = React.useState(10);
             </ListItemButton>
           </ListItem>
 
-          <ListItem disablePadding sx={{ mb: 1 , '&:hover':{
-            background:'rgb(237,231,246)',
-            
-          }}}>
+          <ListItem disablePadding sx={{ mb: 1}}>
             <ListItemButton
-            //   component={Link}
-            //   to="/dashboard/crm"
+           onClick={() => setSelectedCategory("News")}
               sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -1374,13 +1371,9 @@ const [age, setAge] = React.useState(10);
             </ListItemButton>
           </ListItem>
 
-          <ListItem disablePadding sx={{ mb: 1 , '&:hover':{
-            background:'rgb(237,231,246)',
-            
-          }}}>
+          <ListItem disablePadding sx={{ mb: 1}}>
             <ListItemButton
-            //   component={Link}
-            //   to="/dashboard/blogs"
+             onClick={() => setSelectedCategory("Sports")}
               sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -1414,13 +1407,10 @@ const [age, setAge] = React.useState(10);
             </ListItemButton>
           </ListItem>
 
-           <ListItem disablePadding sx={{ mb: 1 , '&:hover':{
-            background:'rgb(237,231,246)',
-            
-          }}}>
+           <ListItem disablePadding sx={{ mb: 1
+}}>
             <ListItemButton
-            //   component={Link}
-            //   to="/dashboard/blogs"
+           onClick={() => setSelectedCategory("Blogs")}
               sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -1454,14 +1444,10 @@ const [age, setAge] = React.useState(10);
             </ListItemButton>
           </ListItem>
 
-           <ListItem disablePadding sx={{ mb: 1 , '&:hover':{
-            background:'rgb(237,231,246)',
-            
-          }}}>
+           <ListItem disablePadding sx={{ mb: 1
+}}>
             <ListItemButton
             onClick={() => setSelectedCategory("Entertainment")}
-            //   component={Link}
-            //   to="/dashboard/blogs"
               sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -1513,10 +1499,7 @@ const [age, setAge] = React.useState(10);
   />
 </ListItem>
 
-<ListItem disablePadding sx={{ mb: 0.3 , '&:hover':{
-            background:'rgb(237,231,246)',
-            
-          }}}>
+<ListItem disablePadding sx={{ mb: 0.3 }}>
             <ListItemButton
             //   component={Link}
             //   to="/dashboard/blogs"
@@ -1551,10 +1534,7 @@ const [age, setAge] = React.useState(10);
             </ListItemButton>
 </ListItem>
     
-<ListItem disablePadding sx={{ mb: 0.3 , '&:hover':{
-            background:'rgb(237,231,246)',
-            
-          }}}>
+<ListItem disablePadding sx={{ mb: 0.3 }}>
             <ListItemButton
             //   component={Link}
             //   to="/dashboard/blogs"
@@ -1589,10 +1569,7 @@ const [age, setAge] = React.useState(10);
             </ListItemButton>
 </ListItem>
        
-<ListItem disablePadding sx={{ mb: 0.3 , '&:hover':{
-            background:'rgb(237,231,246)',
-            
-          }}}>
+<ListItem disablePadding sx={{ mb: 0.3 }}>
             <ListItemButton
             //   component={Link}
             //   to="/dashboard/blogs"
@@ -1627,10 +1604,7 @@ const [age, setAge] = React.useState(10);
             </ListItemButton>
 </ListItem>  
 
-<ListItem disablePadding sx={{ mb: 0.3 , '&:hover':{
-            background:'rgb(237,231,246)',
-            
-          }}}>
+<ListItem disablePadding sx={{ mb: 0.3 }}>
             <ListItemButton
             //   component={Link}
             //   to="/dashboard/blogs"
